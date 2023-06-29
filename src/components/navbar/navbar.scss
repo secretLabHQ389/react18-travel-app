@@ -1,0 +1,37 @@
+// ul {
+//   display: flex;
+//   padding: 0;
+//   align-items: flex-start;
+//   justify-content: space-around;
+// }
+
+//flex box can only make LI as wide as it is, grid can auto-fit with the fr margins
+//how to have dynamic margins here without fr?
+// ul > li {
+//   list-style-type: none;
+//   flex: 0 1 auto;
+//   margin: 20px;
+//   display: inline-block;
+//   text-align: center;
+//   background-color: white;
+//   &:hover {
+//     background-color: pink;
+//   }
+// }
+
+.nav__container {
+  margin-top: 20px;
+  margin-left: .5rem;
+  text-align: center;
+  width: calc(100% - 1rem);
+  display: grid;
+  grid-gap: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(0, 3fr));
+  grid-template-rows: 1;
+  background-color: white;
+
+  div:hover {
+    background-color: pink;
+    text-align: center;
+  }
+}
