@@ -2,15 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import {Provider} from 'react-redux';
 import reportWebVitals from './reportWebVitals';
+import rootReducer from './store/rootReducer.js';
+import { configureStore } from '@reduxjs/toolkit'
 import { BrowserRouter } from 'react-router-dom';
+
+const store = configureStore({
+  reducer: rootReducer,
+})
+
+//https://redux-toolkit.js.org/usage/usage-guide#simplifying-store-setup-with-configurestore
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <BrowserRouter>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>
 );
 

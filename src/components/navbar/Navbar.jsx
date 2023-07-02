@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Apartments from '../../images/Apartments.png'
 import Hostels from '../../images/Hostels.png'
-import Apartstels from '../../images/Apartstels.png'
+import Dormatory from '../../images/Dormatory.png'
 import "./navbar.scss"
 
 import Button from "../button/Button"
@@ -16,11 +16,12 @@ import Modal, {
 const roomsList = [
   'Apartments',
   'Hostels',
-  'Apartstels'
+  'Dormatory'
 ]
 
 const Navbar = () => {
 
+    //startTransition for the modules and RTK for the map:
   const [showModal, setShowModal] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
 
@@ -59,8 +60,8 @@ const Navbar = () => {
                     {product === 'Hostels' && (
                       <img src={Hostels} />
                     )}
-                    {product === 'Apartstels' && (
-                      <img src={Apartstels} />
+                    {product === 'Dormatory' && (
+                      <img src={Dormatory} />
                     )}
                   </div>
                 </ModalBody>
