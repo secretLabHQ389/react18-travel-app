@@ -1,41 +1,75 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import {useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Formik, Form } from 'formik'
+import {object, string} from 'yup'
 import Apartments from '../../images/Apartments.png'
 import Hostels from '../../images/Hostels.png'
 import Dormatory from '../../images/Dormatory.png'
 import "./navbar.scss"
-
-import Button from "../button/Button"
+import { setCurrentProperty } from '../../store/propertySlice'
+import Button from '../button/Button'
+import { InputField } from '../forms/textInput'
 import Modal, {
   ModalBody,
   ModalFooter,
   ModalHeader,
 } from "../module/Module"
+import { mockedLogIn, loggedInStatusSelector } from '../../store/userSlice'
 
-//requires Redux for the module list:
 const roomsList = [
   'Apartments',
   'Hostels',
   'Dormatory'
 ]
 
+const validationSchema = object().shape({
+  username: string()
+  .min(11, 'Please use the provided mocked user.')
+  .required('Username is required'),
+  password: string()
+  .min(13, 'Please use the provided mocked password.')
+  .matches(/[!@#$%^&*()+`~<>?,./''[{/|\\=^-_-{}]+/,
+  'Requires one special character')
+  .matches(/[0-9]+/,
+  'Requires one number')
+  .matches(/[A-Z]+/,
+  'Requires one uppercase.')
+  .required('Password is required')
+})
+
 const Navbar = () => {
 
-    //startTransition for the modules and RTK for the map:
+  //startTransition for the modules and RTK for the map:
   const [showModal, setShowModal] = useState(false)
-  const [loggedIn, setLoggedIn] = useState(false)
+  const mockedLoginStatus = useSelector(loggedInStatusSelector)
+  const dispatch = useDispatch()
 
-  const handleLogin = () => {
-    setLoggedIn(true)
+  const onSubmit = (values, submitProps) => {
+    console.log('onSubmit called')
+    const { username, password } = values
+    submitProps.setSubmitting(true)
+    submitProps.resetForm()
+    dispatch(mockedLogIn({
+      username: username,
+      password: password
+    }))
+    submitProps.setSubmitting(false)
+  }
+  
+  const initialValues = {
+    username: 'Mocked User',
+    password: 'fancyPassword#1'
   }
 
-  const handleLogout = () => {
-    setLoggedIn(false)
+  const chooseCategory = (product) => {
+    setShowModal(false)
+    //startTransition- changing tabs and product pages
+    dispatch(setCurrentProperty(product))
   }
 
   return (
     <div className="nav__container">
-      {console.log(window.location.href)}
       {window.location.href === 'http://localhost:3000/legal' 
         ? (<Link to='/'>Home</Link>) 
         : (<Link to='legal'>Legal Disclaimer</Link>)}
@@ -43,11 +77,10 @@ const Navbar = () => {
         return (
           <div key={Math.random()}>
             <Button onClick={() => setShowModal(true)}>{product}</Button>
-            {loggedIn ? (
+            {mockedLoginStatus ? (
               <Modal
                 show={showModal}
                 setShow={setShowModal}
-                // hideCloseButton
               >
                 <ModalHeader>
                   <h2>{product}</h2>
@@ -66,28 +99,62 @@ const Navbar = () => {
                   </div>
                 </ModalBody>
                 <ModalFooter>
-                  <Button onClick={() => setShowModal(false)}>Choose Selection</Button>
+                  <Button onClick={(product) => chooseCategory(product)}>Choose Selection</Button>
                 </ModalFooter>            
               </Modal>
             ) : (            
               <Modal
                 show={showModal}
                 setShow={setShowModal}
-                // hideCloseButton
               >
                 <ModalHeader>
                   <h2>Login</h2>
                 </ModalHeader>
                 <ModalBody>
-                  <div style={{ textAlign: "justify" }}>
-                    <form>
-                      <label>Email</label>
-                      <input type="email" />
-                      <label>Password</label>
-                      <input type="password" />
-                      <Button onClick={() => handleLogin()}>Enter</Button>
-                    </form>
-                  </div>
+
+                  <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
+                    enableReinitialize={false}
+                  >
+                    {formik => {
+
+                      const checkErrors = async () => {
+                        if (!formik.errors.username
+                        && !formik.errors.password){
+                          console.log('api called with: ', formik)
+                        }
+                      }
+
+                      return (
+                        <Form>
+
+                          <InputField
+                            formik={formik}
+                            name='username'
+                            type='text'
+                            placeholder='Mocked User'
+                            label='Visitor'
+                            />
+
+                          <InputField
+                            formik={formik}
+                            name='password'
+                            type='text'
+                            placeholder='fancyPassword#1'
+                            label='Password'
+                            />
+
+                          <div onClick={() => checkErrors()}>
+                            <Button disabled={!formik.values.password} type='submit'>Login</Button>
+                          </div>                  
+
+                          </Form>
+                        )
+                      }}
+                    </Formik>
+
                 </ModalBody>
                 <ModalFooter>
                   <Button onClick={() => setShowModal(false)}>Close</Button>
@@ -97,7 +164,7 @@ const Navbar = () => {
           </div>
         )
       })}
-      {loggedIn && (<Button onClick={() => handleLogout()}>Logout</Button>)}
+      {/* {mockedLoginStatus && (<Button onClick={() => handleLogout()}>Logout</Button>)} */}
     </div>
   )
 }
