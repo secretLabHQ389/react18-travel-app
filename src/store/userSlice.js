@@ -22,13 +22,12 @@ const userSlice = createSlice({
 
 //plain action creators:
 export const mockedLogIn = loginPayload => dispatch => {
-    console.log('mockedLogIn loginPayload: ', loginPayload.username , loginPayload.password)
     {loginPayload.username === 'Mocked User' && loginPayload.password === 'fancyPassword#1' && dispatch(setLoggedInReducer(true))}
 }
 
 export const selectMockedUser = (state) => state.user
 
-//called in HOC around Outlet in routes:
+//to be called in HOC around Outlet in routes:
 export const loggedInStatusSelector = createSelector(
 	[selectMockedUser],
 	state => state.loggedIn
