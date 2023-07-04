@@ -69,20 +69,26 @@ const Navbar = () => {
     dispatch(setCurrentProperty(product.target.innerHTML))
   }
 
+  const navController = (product) => {
+    setShowModal(true)
+    mockedLoginStatus.payload === true && dispatch(setCurrentProperty(product.target.innerHTML))
+  }
+
   return (
     <div className="nav__container">
+      {console.log('mockedLoginStatus: ', mockedLoginStatus)}
       {window.location.href === 'http://localhost:3000/legal' 
         ? (<Link to='/'>Home</Link>) 
         : (<Link to='legal'>Legal Disclaimer</Link>)}
       {roomsList && roomsList.map(product => {
         return (
           <div key={Math.random()}>
-            <Button onClick={(product) => chooseCategory(product)}>{product}</Button>
+            <Button onClick={(product) => navController(product)}>{product}</Button>
 
           </div>
         )
       })}
-                  {mockedLoginStatus ? (
+                  {mockedLoginStatus.payload === true ? (
               <Modal
                 show={showModal}
                 setShow={setShowModal}
@@ -104,7 +110,7 @@ const Navbar = () => {
                   </div>
                 </ModalBody>
                 <ModalFooter>
-                  <Button onClick={(currentSelectedProperty) => chooseCategory(currentSelectedProperty)}>Choose Selection</Button>
+                  {currentSelectedProperty !== 'Welcome! Pick a Category to Begin!' && <Button onClick={(currentSelectedProperty) => chooseCategory(currentSelectedProperty)}>Choose Selection</Button>}
                 </ModalFooter>            
               </Modal>
             ) : (            

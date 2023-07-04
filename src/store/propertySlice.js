@@ -8,7 +8,7 @@ import {getUsers} from '../apis/properties'
 const PropertiesInitialState = {
 	loading: false,
 	properties: ['No properties found.'],
-    selectedProperty: 'Nothing'
+    selectedProperty: 'Welcome! Pick a Category to Begin!'
 }
 
 export const getUsersHandler = createAsyncThunk(
