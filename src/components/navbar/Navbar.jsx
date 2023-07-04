@@ -7,7 +7,7 @@ import Apartments from '../../images/Apartments.png'
 import Hostels from '../../images/Hostels.png'
 import Dormatory from '../../images/Dormatory.png'
 import "./navbar.scss"
-import { setCurrentProperty } from '../../store/propertySlice'
+import { setCurrentProperty, selectedPropertySelector } from '../../store/propertySlice'
 import Button from '../button/Button'
 import { InputField } from '../forms/textInput'
 import Modal, {
@@ -43,6 +43,7 @@ const Navbar = () => {
   //startTransition for the modules and RTK for the map:
   const [showModal, setShowModal] = useState(false)
   const mockedLoginStatus = useSelector(loggedInStatusSelector)
+  const currentSelectedProperty = useSelector(selectedPropertySelector)
   const dispatch = useDispatch()
 
   const onSubmit = (values, submitProps) => {
@@ -63,9 +64,9 @@ const Navbar = () => {
   }
 
   const chooseCategory = (product) => {
-    setShowModal(false)
+    setShowModal(true)
     //startTransition- changing tabs and product pages
-    dispatch(setCurrentProperty(product))
+    dispatch(setCurrentProperty(product.target.innerHTML))
   }
 
   return (
@@ -76,7 +77,7 @@ const Navbar = () => {
       {roomsList && roomsList.map(product => {
         return (
           <div key={Math.random()}>
-            <Button onClick={() => setShowModal(true)}>{product}</Button>
+            <Button onClick={(product) => chooseCategory(product)}>{product}</Button>
             {mockedLoginStatus ? (
               <Modal
                 show={showModal}
@@ -87,19 +88,19 @@ const Navbar = () => {
                 </ModalHeader>
                 <ModalBody>
                   <div style={{ textAlign: "justify" }}>
-                    {product === 'Apartments' && (
+                    {currentSelectedProperty === 'Apartments' && (
                       <img src={Apartments} />
                     )}
-                    {product === 'Hostels' && (
+                    {currentSelectedProperty === 'Hostels' && (
                       <img src={Hostels} />
                     )}
-                    {product === 'Dormatory' && (
+                    {currentSelectedProperty === 'Dormatory' && (
                       <img src={Dormatory} />
                     )}
                   </div>
                 </ModalBody>
                 <ModalFooter>
-                  <Button onClick={(product) => chooseCategory(product)}>Choose Selection</Button>
+                  <Button onClick={(currentSelectedProperty) => chooseCategory(currentSelectedProperty)}>Choose Selection</Button>
                 </ModalFooter>            
               </Modal>
             ) : (            
