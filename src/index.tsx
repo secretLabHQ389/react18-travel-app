@@ -10,9 +10,11 @@ import { BrowserRouter } from 'react-router-dom';
 
 const store = configureStore({
   reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+  getDefaultMiddleware({
+    serializableCheck: false
+  }),
 })
-
-//https://redux-toolkit.js.org/usage/usage-guide#simplifying-store-setup-with-configurestore
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

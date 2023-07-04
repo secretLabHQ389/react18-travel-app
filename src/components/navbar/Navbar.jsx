@@ -64,7 +64,7 @@ const Navbar = () => {
   }
 
   const chooseCategory = (product) => {
-    setShowModal(true)
+    setShowModal(false)
     //startTransition- changing tabs and product pages
     dispatch(setCurrentProperty(product.target.innerHTML))
   }
@@ -78,13 +78,17 @@ const Navbar = () => {
         return (
           <div key={Math.random()}>
             <Button onClick={(product) => chooseCategory(product)}>{product}</Button>
-            {mockedLoginStatus ? (
+
+          </div>
+        )
+      })}
+                  {mockedLoginStatus ? (
               <Modal
                 show={showModal}
                 setShow={setShowModal}
               >
                 <ModalHeader>
-                  <h2>{product}</h2>
+                  <h2>{currentSelectedProperty}</h2>
                 </ModalHeader>
                 <ModalBody>
                   <div style={{ textAlign: "justify" }}>
@@ -162,9 +166,6 @@ const Navbar = () => {
                 </ModalFooter>            
               </Modal>
             )}
-          </div>
-        )
-      })}
       {/* {mockedLoginStatus && (<Button onClick={() => handleLogout()}>Logout</Button>)} */}
     </div>
   )

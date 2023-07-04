@@ -5,12 +5,10 @@ import {
 import {createSelector} from 'reselect'
 import {getUsers} from '../apis/properties'
 
-//https://redux-toolkit.js.org/rtk-query/overview
-
 const PropertiesInitialState = {
 	loading: false,
 	properties: ['No properties found.'],
-    selectedProperty: ''
+    selectedProperty: 'Nothing'
 }
 
 export const getUsersHandler = createAsyncThunk(
@@ -19,6 +17,8 @@ export const getUsersHandler = createAsyncThunk(
         
       ) => {
           const users = await getUsers()
+		  //This works fine:
+		  console.log('users: ', users.data)
           return users
   })
 
@@ -38,8 +38,7 @@ const propertySlice = createSlice({
 
 		[getUsers.fulfilled](state, {payload}) {
 			state.loading = false
-            console.log('user json: ', payload)
-			//state.properties = 
+			console.log('payload: ', payload)
 		},
 
 		[getUsers.rejected](state) {
