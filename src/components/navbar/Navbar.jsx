@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useTransition } from 'react'
 import {useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Formik, Form } from 'formik'
@@ -39,8 +39,7 @@ const validationSchema = object().shape({
 })
 
 const Navbar = () => {
-
-  //startTransition for the modules and RTK for the map:
+  const [isPending, startTransition] = useTransition()
   const [showModal, setShowModal] = useState(false)
   const mockedLoginStatus = useSelector(loggedInStatusSelector)
   const currentSelectedProperty = useSelector(selectedPropertySelector)
@@ -65,8 +64,9 @@ const Navbar = () => {
 
   const chooseCategory = (product) => {
     setShowModal(false)
-    //startTransition- changing tabs and product pages
-    dispatch(setCurrentProperty(product.target.innerHTML))
+    startTransition(() => {
+      dispatch(setCurrentProperty(product.target.innerHTML))
+    })
   }
 
   const navController = (product) => {
@@ -76,7 +76,6 @@ const Navbar = () => {
 
   return (
     <div className="nav__container">
-      {console.log('mockedLoginStatus: ', mockedLoginStatus)}
       {window.location.href === 'http://localhost:3000/legal' 
         ? (<Link to='/'>Home</Link>) 
         : (<Link to='legal'>Legal Disclaimer</Link>)}
