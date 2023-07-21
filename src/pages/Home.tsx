@@ -5,6 +5,8 @@ import ApartmentsListing from '../components/listings/apartments';
 import LandingPage from './LandingPage';
 import { selectedPropertySelector } from '../store/propertySlice';
 
+//@ts-check
+
 function Home() {
   const currentProperty = useSelector(selectedPropertySelector)
   return (

@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux'
 
 const AUStates = ['Queensland', 'New South Wales', 'Victoria', 'Tasmania', 'South Australia', 'Western Australia', 'Australian Capitol Territory', 'Northern Territory']
 
+//@ts-check
+
 const SearchResults = props => {
   const {query} = props
 

@@ -3,6 +3,8 @@ import CircleType from 'circletype'
 import CityLivin from '../images/CityLivin.png'
 import './pages.scss'
 
+//@ts-check
+
 const LandingPage = () => {
 
     useEffect(() => {

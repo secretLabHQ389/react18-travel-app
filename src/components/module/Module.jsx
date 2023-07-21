@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react"
 import "./module.scss"
 
+//@ts-check
+
 const Modal = (props) => {
   const modalRef = useRef()
 

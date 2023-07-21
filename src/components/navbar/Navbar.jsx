@@ -38,6 +38,8 @@ const validationSchema = object().shape({
   .required('Password is required')
 })
 
+//@ts-check
+
 const Navbar = () => {
   const [isPending, startTransition] = useTransition()
   const [showModal, setShowModal] = useState(false)
