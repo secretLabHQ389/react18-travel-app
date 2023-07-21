@@ -65,7 +65,7 @@ const Navbar = () => {
   const chooseCategory = (product) => {
     setShowModal(false)
     startTransition(() => {
-      dispatch(setCurrentProperty(product.target.innerHTML))
+      dispatch(setCurrentProperty(product))
     })
   }
 
@@ -74,11 +74,16 @@ const Navbar = () => {
     mockedLoginStatus.payload === true && dispatch(setCurrentProperty(product.target.innerHTML))
   }
 
+  const bounceOut = () => {
+    dispatch(setCurrentProperty('Welcome! Pick a Category to Begin!'))
+  }
+
   return (
     <div className="nav__container">
       {window.location.href === 'http://localhost:3000/legal' 
         ? (<Link to='/'>Home</Link>) 
         : (<Link to='legal'>Legal Disclaimer</Link>)}
+      <Button onClick={() => bounceOut()}>Home</Button>
       {roomsList && roomsList.map(product => {
         return (
           <div key={Math.random()}>
@@ -87,7 +92,7 @@ const Navbar = () => {
           </div>
         )
       })}
-                  {mockedLoginStatus.payload === true ? (
+            {mockedLoginStatus.payload === true ? (
               <Modal
                 show={showModal}
                 setShow={setShowModal}
@@ -109,7 +114,7 @@ const Navbar = () => {
                   </div>
                 </ModalBody>
                 <ModalFooter>
-                  {currentSelectedProperty !== 'Welcome! Pick a Category to Begin!' && <Button onClick={(currentSelectedProperty) => chooseCategory(currentSelectedProperty)}>Choose Selection</Button>}
+                  {currentSelectedProperty !== 'Welcome! Pick a Category to Begin!' && <Button onClick={() => chooseCategory(currentSelectedProperty)}>Choose Selection</Button>}
                 </ModalFooter>            
               </Modal>
             ) : (            

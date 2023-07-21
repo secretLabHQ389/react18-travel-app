@@ -1,0 +1,27 @@
+.hostel-hangout {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.welcome-notice {
+    position: absolute;
+    z-index: 100;
+    top: 5%;
+    font-size: 130px;
+    color: darkgreen;
+}
+
+.welcome-notice-slogan {
+    position: absolute;
+    z-index: 100;
+    top: 20%;
+    font-size: 40px;
+    color: gold;
+}
+
+.centered {
+    left: 50%;
+    transform: translate(-50%, 0);
+}
