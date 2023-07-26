@@ -8,6 +8,10 @@ import rootReducer from './store/rootReducer.js';
 import { configureStore } from '@reduxjs/toolkit'
 import { BrowserRouter } from 'react-router-dom';
 
+//error catching:
+import LogRocket from 'logrocket'; 
+LogRocket.init('app/id');
+
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
