@@ -3,11 +3,11 @@ import "./module.scss"
 
 //@ts-check
 
-const Modal = (props) => {
-  const modalRef = useRef()
+const Modal: React.FC = (props: any) => {
+  const modalRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const clickOutsideContent = (e) => {
+    const clickOutsideContent = (e: any) => {
       if (e.target === modalRef.current) {
         props.setShow(false)
       }
@@ -34,14 +34,14 @@ const Modal = (props) => {
 
 export default Modal
 
-export const ModalHeader = (props) => {
+export const ModalHeader: React.FC = (props: any) => {
   return <div className="modal__header">{props.children}</div>
 }
 
-export const ModalBody = (props) => {
+export const ModalBody: React.FC = (props: any) => {
   return <div className="modal__body">{props.children}</div>
 }
 
-export const ModalFooter = (props) => {
+export const ModalFooter: React.FC = (props: any) => {
   return <div className="modal__footer">{props.children}</div>
 }
