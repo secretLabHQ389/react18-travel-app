@@ -18,7 +18,7 @@ const LandingPage = () => {
     <div className={'hostel-hangout'}>
       <h1 id='title' className={'welcome-notice centered'}>Travel App</h1>
       <h3 id='subtitle' className={'welcome-notice-slogan centered'}>Come hang out with us!</h3>
-      <img className={'full-width'} src="https://tinypic.host/images/2023/07/26/CityLivin.png" alt="CityLivin.png" border="0"></img>
+      <img className={'full-width'} src="https://tinypic.host/images/2023/08/25/CityLivin.png" alt="CityLivin.png" border="0"></img>
 
     </div>
   );
