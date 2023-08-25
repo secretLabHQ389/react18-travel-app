@@ -35,7 +35,9 @@
     }
 
     &__header,
-    &__body,
+    &__body {
+        padding: 10px;
+    }
     &__footer {
         padding: 16px 20px;
     }

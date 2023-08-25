@@ -105,13 +105,13 @@ const Navbar = () => {
                 <ModalBody>
                   <div style={{ textAlign: "justify" }}>
                     {currentSelectedProperty === 'Apartments' && (
-                      <img src={Apartments} />
+                      <img className={'image-box'} src={Apartments} />
                     )}
                     {currentSelectedProperty === 'Hostels' && (
-                      <img src={Hostels} />
+                      <img className={'image-box'} src={Hostels} />
                     )}
                     {currentSelectedProperty === 'Dormatory' && (
-                      <img src={Dormatory} />
+                      <img className={'image-box'} src={Dormatory} />
                     )}
                   </div>
                 </ModalBody>
