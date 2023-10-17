@@ -85,7 +85,7 @@ const Navbar = () => {
       {window.location.href === 'http://localhost:3000/legal' 
         ? (<Link to='/'>Home</Link>) 
         : (<Link to='legal'>Legal Disclaimer</Link>)}
-      <Button onClick={() => bounceOut()}>Home</Button>
+      <Link to='/'><Button onClick={() => bounceOut()}>Home</Button></Link>
       {roomsList && roomsList.map(product => {
         return (
           <div key={Math.random()}>
